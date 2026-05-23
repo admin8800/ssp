@@ -1,3 +1,43 @@
+```
+services:
+  ssp:
+    image: ghcr.io/admin8800/ssp
+    container_name: ssp
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - mariadb
+      - redis
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./.config.php:/var/www/html/config/.config.php
+
+  mariadb:
+    image: mariadb:10.11
+    container_name: mariadb-ssp
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MARIADB_ROOT_PASSWORD=sspanel
+      - MARIADB_DATABASE=sspanel
+      - MARIADB_USER=sspanel
+      - MARIADB_PASSWORD=sspanel
+    command:
+      - --sql-mode=
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-ssp
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - ./data/redis:/data
+```
+
 ### 启动
 
 修改`.config.php`配置，修改域名，数据库，redis等配置信息。
