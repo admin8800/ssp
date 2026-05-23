@@ -1,0 +1,1 @@
+*/5 * * * * cd /var/www/html && su -s /bin/sh www-data -c 'php xcat Cron'
