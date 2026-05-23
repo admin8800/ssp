@@ -6,10 +6,12 @@
 docker compose up -d
 ```
 
-### 导入数据
+### 进入容器
 ```
 docker compose exec -i ssp sh
 ```
+
+### 导入数据
 ```bash
 # 导入基础数据库
 php xcat Migration new
@@ -44,6 +46,10 @@ curl -L https://github.com/du5/geoip/raw/refs/heads/main/GeoLite2-Country.mmdb \
   -o storage/GeoLite2-Country/GeoLite2-Country.mmdb
 ```
 
+### 反代并开启HTTPS
+
+ssp面板要求必须反代并开启HTTPS，否则无法正常访问
+
 ### GeoIP2配置（可选）
 
 [GeoIP2配置文档](https://docs.sspanel.io/docs/configuration/basic#geoip2-%E9%85%8D%E7%BD%AE)
@@ -51,8 +57,3 @@ curl -L https://github.com/du5/geoip/raw/refs/heads/main/GeoLite2-Country.mmdb \
 更新GeoIP2命令：`php xcat Tool updateGeoIP2`
 
 更多命令：`php xcat Tool`
-
-
-### 反代并开启HTTPS
-
-反代`8080`端口并开启HTTPS即可正常访问面板
